@@ -16,14 +16,24 @@ $query = mysqli_query($conn, "SELECT b.*, t.name AS test_name
 ?>
 <!DOCTYPE html>
 <html>
-<head><title>My Bookings</title>
-<link rel="stylesheet" href="../assets/css/style.css">
+<head>
+    <title>My Bookings - HealthCheck Lab</title>
+    <link rel="stylesheet" href="../assets/css/my_bookings.css">
 </head>
 <body>
-    <h2>Welcome, <?= $_SESSION['user_name'] ?></h2>
+
+<div class="container">
+    <div class="top-bar">
+        <h2>Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?></h2>
+        <div>
+            <a href="index.php">← Back to Home</a>
+            <a href="logout.php" style="background-color: #dc3545;">Logout</a>
+        </div>
+    </div>
+
     <h3>Your Bookings</h3>
-    <a href="logout.php">Logout</a>
-    <table border="1" cellpadding="8">
+
+    <table>
         <tr>
             <th>Test</th>
             <th>Date</th>
@@ -31,11 +41,15 @@ $query = mysqli_query($conn, "SELECT b.*, t.name AS test_name
         </tr>
         <?php while ($row = mysqli_fetch_assoc($query)): ?>
         <tr>
-            <td><?= $row['test_name'] ?></td>
-            <td><?= $row['preferred_date'] ?></td>
-            <td><?= ucfirst($row['status']) ?></td>
+            <td><?= htmlspecialchars($row['test_name']) ?></td>
+            <td><?= htmlspecialchars($row['preferred_datetime']) ?></td>
+            <td class="status <?= strtolower($row['status']) ?>">
+                <?= ucfirst($row['status']) ?>
+            </td>
         </tr>
         <?php endwhile; ?>
     </table>
+</div>
+
 </body>
 </html>
