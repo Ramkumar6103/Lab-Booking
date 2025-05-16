@@ -21,76 +21,33 @@ $test = mysqli_fetch_assoc($query);
 <html>
 <head>
     <title><?= htmlspecialchars($test['name']) ?> - Test Details</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.1);
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #1e90ff;
-            margin-bottom: 15px;
-        }
-        .price {
-            font-size: 24px;
-            color: #28a745;
-            margin: 20px 0;
-        }
-        .book-btn {
-            background-color: #1e90ff;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .book-btn:hover {
-            background-color: #0077cc;
-        }
-        .section-title {
-            font-weight: bold;
-            margin-top: 20px;
-            color: #333;
-        }
-        p {
-            line-height: 1.5;
-            color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/test-details.css">
 </head>
 <body>
 
 <div class="container">
     <h1><?= htmlspecialchars($test['name']) ?></h1>
     
-    <div>
-        <span class="section-title">Full Description:</span>
+    <div class="section">
+        <h2>Full Description</h2>
         <p><?= nl2br(htmlspecialchars($test['description'])) ?></p>
     </div>
     
-    <div>
-        <span class="section-title">Instructions:</span>
-        <p><?= isset($test['instructions']) ? nl2br(htmlspecialchars($test['instructions'])) : 'No special instructions.' ?></p>
+    <div class="section">
+        <h2>Instructions</h2>
+        <p><?= !empty($test['instructions']) ? nl2br(htmlspecialchars($test['instructions'])) : 'No special instructions.' ?></p>
     </div>
     
-    <div>
-        <span class="section-title">Duration:</span>
-        <p><?= isset($test['duration']) ? htmlspecialchars($test['duration']) : 'N/A' ?></p>
+    <div class="section">
+        <h2>Duration</h2>
+        <p><?= !empty($test['duration']) ? htmlspecialchars($test['duration']) : 'N/A' ?></p>
     </div>
     
     <div class="price">
         Price: ₹<?= number_format($test['price'], 2) ?>
     </div>
     
-    <a href="book-test.php?id=<?= $test['id'] ?>" class="book-btn">Book Now</a>
+    <a href="book-test.php?id=<?= $test['id'] ?>" class="btn-primary">Book Now</a>
 </div>
 
 </body>
